@@ -5,12 +5,11 @@ import java.util.Set;
 
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.MarkupWriter;
-import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.corelib.components.Alerts;
 import org.apache.tapestry5.dom.Element;
 import org.apache.tapestry5.dom.Visitor;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.Environment;
 import org.apache.tapestry5.services.javascript.InitializationPriority;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
@@ -41,6 +40,12 @@ public class AlertsProvider extends AbstractFrameworkProvider implements Bootstr
 				return;
 			}
 			
+			if (alertsCss == null)
+				alertsCss = assetSource.getClasspathAsset("com/trsvax/bootstrap/t5-bootstrap-alerts.css");
+			
+			if (alertsJs == null)
+				alertsJs = assetSource.getClasspathAsset("com/trsvax/bootstrap/t5-bootstrap-alerts.js");
+			
 			javaScriptSupport.importStylesheet(alertsCss);
 			javaScriptSupport.importJavaScriptLibrary(alertsJs);
 			javaScriptSupport.addInitializerCall(InitializationPriority.EARLY, "bootstrapAlerts", new JSONArray());
@@ -51,20 +56,21 @@ public class AlertsProvider extends AbstractFrameworkProvider implements Bootstr
 	private final Class<?>[] handles = {Alerts.class};
 	private final Class<AlertsEnvironment> environmentClass = AlertsEnvironment.class;
 	private final Environment environment;
+	private final AssetSource assetSource;
 	@SuppressWarnings("unused")
 	private final Logger logger;
 	
-	@Inject @Path("classpath:com/trsvax/bootstrap/t5-bootstrap-alerts.js")
 	private Asset alertsJs;
 	
-	@Inject @Path("classpath:com/trsvax/bootstrap/t5-bootstrap-alerts.css")
 	private Asset alertsCss;
+	
 	private JavaScriptSupport javaScriptSupport;
 
-	public AlertsProvider(Environment environment, Logger logger, JavaScriptSupport javaScriptSupport) {
+	public AlertsProvider(Environment environment, Logger logger, JavaScriptSupport javaScriptSupport,  AssetSource assetSource) {
 		this.environment = environment;
 		this.logger = logger;
 		this.javaScriptSupport = javaScriptSupport;
+		this.assetSource = assetSource;
 	}
 	
 	public boolean instrument(FrameworkMixin mixin) {
