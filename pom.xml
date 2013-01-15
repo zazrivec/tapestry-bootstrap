@@ -15,10 +15,29 @@
 		</license>
 	</licenses>
     <scm>
-        <url>git@github.com/trsvax/tapestry-bootstrap</url>
-        <connection>scm:git:git://github.com/trsvax/tapestry-bootstrap.git</connection>
-        <developerConnection>scm:git:git@github.com:trsvax/tapestry-bootstrap.git</developerConnection>
+        <url>git@github.com/zazrivec/tapestry-bootstrap</url>
+        <connection>scm:git:git://github.com/zazrivec/tapestry-bootstrap.git</connection>
+        <developerConnection>scm:git:git@github.com:zazrivec/tapestry-bootstrap.git</developerConnection>
     </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Internal Releases</name>
+            <url>http://jedi/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Internal Snapshots</name>
+            <url>http://jedi/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>webdav</id>
+            <name>webdav demo site</name>
+            <url>dav:http://jedi/sites-dav/</url>
+        </site>
+    </distributionManagement>
+
     <developers>
 		<developer>
 			<id>trsvax</id>
