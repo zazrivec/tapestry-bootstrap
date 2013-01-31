@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.got5</groupId>
             <artifactId>tapestry5-jquery</artifactId>
-            <version>3.3.4</version>
+            <version>3.3.5</version>
         </dependency>
 
         <!-- A dependency on either JUnit or TestNG is required, or the surefire plugin (which runs the tests)
